@@ -1,4 +1,25 @@
 @CHARSET "UTF-8";
+
+html, body, div, p {
+	margin: 0;
+	padding: 0;
+	font-size: 18px;
+}
+
+#wrapper {
+	padding: 16px;
+}
+
 #sessionid {
 	width: 230px;
+}
+
+.help {
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	background: rgba(160, 220, 255, 1);
+	display: inline-block;
+	text-align: center;
+	line-height: 24px;
 }
