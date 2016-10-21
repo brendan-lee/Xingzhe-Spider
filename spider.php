@@ -1,14 +1,5 @@
 <?php
 /**
- * 中止运行并返回错误文本。
- *
- * @param String $str
- */
-function wrong($str) {
-	exit ( '<p>' . $str . '</p><p><a href="index.php">返回首页</a></p>' );
-}
-
-/**
  * 爬取行者的GPX数据。
  *
  * @param int $id
@@ -27,7 +18,7 @@ function getGPX($id) {
 	// sessionid有误时，删文件夹&退出
 	if ($result == '登录以后才能导出') {
 		rmdir ( $folder );
-		wrong ( 'sessionid不正确，无法登录到行者。' );
+		exit ( '9:sessionid不正确，无法登录到行者。' );
 	}
 	
 	return $result == NULL ? false : $result;
@@ -76,7 +67,7 @@ echo '<p>成功' . $successCount . '个，失败' . $failCount . '个。</p>';
 // 无文件则删除文件夹
 if ($successCount == 0)
 	rmdir ( $folder );
-
-// TODO zip打包gpx
+	
+	// TODO zip打包gpx
 
 ?>

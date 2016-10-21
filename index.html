@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>行者GPX爬虫</title>
+<link rel='stylesheet' href='main.css'>
+<script type="text/javascript" src='jquery.min.js'></script>
+</head>
+
+<body>
+	<div id='wrapper'>
+		<div>
+			<span>行者 sessionid： </span>
+			<input id='sessionid' type='text' />
+			<input type='button' value='dsadas' onclick='submit()' />
+			<div class='help'>？</div>
+		</div>
+
+		<div>
+			<span>日期范围</span>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		function submit() {
+			//$('body').html('<p>正在爬取GPX数据，过程视数据量可能持续数秒至数分钟，请不要关闭页面。</p>');
+			//$('title').html('正在爬取GPX数据……');
+
+			$.post('submit.php', {
+				sessionid : $('#sessionid').val()
+			}, function(data) {
+				switch (data.substr(0, 2)) {
+					case '9:' :
+						alert(data.substr(2));
+						break;
+					
+					default :
+						$('body').append(data);
+						break;
+				}
+			})
+		}
+	</script>
+</body>
+</html>
