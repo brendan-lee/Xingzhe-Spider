@@ -7,7 +7,7 @@
 
 <body>
 	<div id='wrapper'>
-		<form action='submit.php' method='get'>
+		<form action='submit.php' method='post'>
 			<div>
 				<span>行者 sessionid： </span>
 				<input name='sessionid' type='text' />
@@ -16,7 +16,7 @@
 			</div>
 			<div>
 				<span>日期范围</span>
-				<
+
 			</div>
 		</form>
 	</div>
