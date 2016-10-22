@@ -1,4 +1,5 @@
 <?php
+
 include 'functions.php';
 
 /**
@@ -6,19 +7,16 @@ include 'functions.php';
  */
 
 // sessionid为空
-if (@$_POST ['sessionid'] == NULL)
-	exit ( '<script>alert("sessionid不能为空，请正确填写后执行。")</script>' );
+if ($_POST ['sessionid'] == NULL)
+	exit ( '<script>msg("错误", "sessionid不能为空，请正确填写后执行。")</script>' );
 $sessionId = $_POST ['sessionid'];
 
 
 // sessionid有误
 if (getGPX(1) == '登录以后才能导出')
-	exit('<script>alert("sessionid不正确，无法登录到行者。")</script>');
+	exit('<script>msg("错误", "sessionid不正确，无法登录到行者。")</script>');
 
-
-
-
-
+define('VALIDATED', 1);
 
 
 

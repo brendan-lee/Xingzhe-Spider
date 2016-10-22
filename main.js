@@ -5,6 +5,35 @@ function submit() {
 	$.post('validate.php', {
 		sessionid: $('#sessionid').val()
 	}, function(data) {
-		$('body').append(data);
+		setTimeout(function() {
+			$('body').append(data);
+		}, 500);
+	})
+}
+
+function msg(title, cont) {
+	var msg = $('#pop_msg');
+	var bg = $('#pop_back');
+
+	msg.html('');
+	msg.append('<div id="msg_title">' + title + '</div>');
+	msg.append('<div id="msg_cont">' + cont + '</div>')
+
+	bg.css({
+		'visibility': 'visible',
+		'opacity': '1'
+	});
+
+}
+
+function closeMsg(obj) {
+	if(event.target != obj) return;
+
+	var msg = $('#pop_msg');
+	var bg = $('#pop_back');
+
+	bg.css('opacity', 0);
+	bg.one('transitionend', function clr() {
+		bg.css('visibility', 'hidden');
 	})
 }
