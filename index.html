@@ -12,15 +12,26 @@
 			<div>
 				<span>行者 sessionid： </span>
 				<input id='sessionid' type='text' />
-				<input type='button' value='dsadas' onclick='submit()' />
+				
 			</div>
 
 			<div>
 				<span>日期范围：</span>
-				<select>
-					<option>dsa</option>
+				<select id='from_year'>
 				</select>
+				年
+				<select id='from_month'>
+				</select>
+				月 ~ 
+				<select id='to_year'>
+				</select>
+				年
+				<select id='to_month'>
+				</select>
+				月
 			</div>
+			
+			<input type='button' value='爬取' onclick='submit()' />
 		</div>
 
 		<div id='pop_back' onclick='closeMsg(this)'>
