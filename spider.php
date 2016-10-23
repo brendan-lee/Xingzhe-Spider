@@ -4,7 +4,6 @@ defined('VALIDATED') or	exit('请勿非法调用！');
 /**
  * 按日期时间创建导出文件夹
  */
-date_default_timezone_set('Asia/Shanghai');
 $root = dirname(__FILE__) . '\gpx';
 $folder = $root . '\\' . date('ymd_his');
 if (!is_dir($root))

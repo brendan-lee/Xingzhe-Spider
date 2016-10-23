@@ -5,23 +5,49 @@ include 'functions.php';
  * 验证
  */
 
-// sessionid为空
+// 验证sessionid是否为空
 if ($_POST['sessionid'] == NULL)
 	exit('<script>msg("错误", "sessionid不能为空，请正确填写后执行。")</script>');
-$sessionId = $_POST['sessionid'];
 
-// sessionid有误
-if (getGPX(1) == '登录以后才能导出')
+// 验证日期范围
+$fromY = $_POST['fromY'];
+$fromM = $_POST['fromM'];
+$toY = $_POST['toY'];
+$toM = $_POST['toM'];
+if ($toY < $fromY || ($toY <= $fromY && $toM < $fromM)) {
+	exit('<script>msg("错误", "日期范围有误，请正确选择。")</script>');
+}
+
+// 验证sessionid
+$sessionId = $_POST['sessionid'];
+if (getGPX($sessionId, 1) == '登录以后才能导出')
 	exit('<script>msg("错误", "sessionid不正确，无法登录到行者。")</script>');
 
-// 验证完成，写入任务清单
-$taskRoot = dirname(__FILE__) . '\task\\';
+
+
+
+
+
+// 验证通过
+$taskRoot = dirname(__FILE__) . '\task';
 if (!is_dir($taskRoot))
 	mkdir($taskRoot);
 
+
+
+
+
+
 // 分配taskid
+date_default_timezone_set('Asia/Shanghai');
 $taskId = md5(microtime(true) . rand(0, 100));
-fopen($taskRoot . $taskId, 'a');
+
+// 写入任务清单
+$taskFile = fopen($taskRoot . '\\' . $taskId, 'a');
+
+
+
+// 开始爬取
 echo '<script>grab("' . $taskId . '")</script>';
 
 

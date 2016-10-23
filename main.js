@@ -16,9 +16,9 @@ function validate() {
 	})
 }
 
-
 /**
- * 爬取
+ * 向后台发送爬取请求
+ * @param String taskId 任务ID
  */
 function grab(taskId) {
 	
