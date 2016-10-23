@@ -18,6 +18,7 @@ div {
 }
 
 #wrapper {
+	margin: 0;
 	padding: 16px;
 }
 
@@ -27,6 +28,7 @@ div {
 
 #pop_back {
 	position: fixed;
+	margin: 0;
 	top: 0;
 	left: 0;
 	background: rgba(0, 0, 0, 0.8);
@@ -41,6 +43,7 @@ div {
 #pop_msg {
 	width: 260px;
 	height: 140px;
+	margin: 0;
 	padding: 20px 30px;
 	border-radius: 6px;
 	background: #eee;

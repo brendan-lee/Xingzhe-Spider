@@ -1,15 +1,27 @@
 /**
- * 提交数据
+ * 验证提交的数据
  */
-function submit() {
+function validate() {
 	//$('body').html('<p>正在爬取GPX数据，过程视数据量可能持续数秒至数分钟，请不要关闭页面。</p>');
 	//$('title').html('正在爬取GPX数据……');
 
 	$.post('validate.php', {
-		sessionid: $('#sessionid').val()
+		sessionid: $('#sessionid').val(),
+		fromY: $('#from_year option:selected').val(),
+		fromM: $('#from_month option:selected').val(),
+		toY: $('#to_year option:selected').val(),
+		toM: $('#to_month option:selected').val()
 	}, function(data) {
 		$('#wrapper').append(data);
 	})
+}
+
+
+/**
+ * 爬取
+ */
+function grab(taskId) {
+	
 }
 
 /**
