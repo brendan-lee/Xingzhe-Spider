@@ -1,6 +1,8 @@
 <?php
 include 'functions.php';
 
+
+
 /**
  * 验证
  */
@@ -8,6 +10,7 @@ include 'functions.php';
 // 验证sessionid是否为空
 if ($_POST['sessionid'] == NULL)
 	exit('<script>msg("错误", "sessionid不能为空，请正确填写后执行。")</script>');
+$sessionId = $_POST['sessionid'];
 
 // 验证uid是否为空
 if ($_POST['uid'] == NULL)
@@ -24,36 +27,51 @@ if ($toY < $fromY || ($toY <= $fromY && $toM < $fromM)) {
 }
 
 // 验证sessionid
-$sessionId = $_POST['sessionid'];
 if (getGPX($sessionId, 1) == '登录以后才能导出')
 	exit('<script>msg("错误", "sessionid不正确，无法登录到行者。")</script>');
 
 
 
 
-
-
-// 验证通过
-$taskRoot = dirname(__FILE__) . '\task';
-if (!is_dir($taskRoot))
-	mkdir($taskRoot);
-
-
-
-
-
+/*
+ * 验证通过
+ */
 
 // 分配taskid
 date_default_timezone_set('Asia/Shanghai');
 $taskId = md5(microtime(true) . rand(0, 100));
 
-// 写入任务清单
-$taskFile = fopen($taskRoot . '\\' . $taskId, 'a');
+// 写入需要爬取的年份&月份到任务清单
+$dateList = array();
+for ($y = $fromY, $i = 0; $y <= $toY; $y++, $i++) {
+	$dateList[$y] = array();
+	for ($m = ($y == $fromY ? $fromM : 1); $m <= ($y == $toY ? $toM : 12); $m++) {
+		$dateList[$y][] = (int)$m;
+	}
+}
 
-
+$taskRoot = dirname(__FILE__) . '\task';
+if (!is_dir($taskRoot))
+	mkdir($taskRoot);
+write2File($taskRoot . '\\' . $taskId, json_encode($dateList), true);
+echo '<script>msg("正在爬取GPX数据，过程视数据量和网络状况可能持续数秒至十数分钟，在完成前请不要关闭页面。")</script>';
+exit();
 
 // 开始爬取
 echo '<script>grab("' . $taskId . '")</script>';
+
+
+
+
+
+
+
+
+
+$trackInfo = array();
+$tmpArr = json_decode(file_get_contents ( 'http://www.imxingzhe.com/api/v3/user_month_info?user_id=' . $uid . '&year=' . $y . '&month=' . $m), true);
+$trackInfo = array_merge($trackInfo, $tmpArr['data']['wo_info']);
+
 
 
 define('VALIDATED', 1);

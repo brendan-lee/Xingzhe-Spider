@@ -30,8 +30,8 @@ function getGPX($sid, $id) {
  * @param String $filename
  *        	欲存入的文件名
  */
-function write2File($content, $filename) {
-	$file = fopen($filename, 'a');
+function write2File($filename, $content, $emptyFile) {
+	$file = fopen($filename, $emptyFile ? 'w' : 'a');
 	fwrite($file, $content);
 	fclose($file);
 }
