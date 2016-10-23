@@ -7,6 +7,7 @@ function validate() {
 
 	$.post('validate.php', {
 		sessionid: $('#sessionid').val(),
+		uid: $('#uid').val(),
 		fromY: $('#from_year option:selected').val(),
 		fromM: $('#from_month option:selected').val(),
 		toY: $('#to_year option:selected').val(),

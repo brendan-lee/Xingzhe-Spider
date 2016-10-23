@@ -26,6 +26,10 @@ div {
 	width: 230px;
 }
 
+#uid {
+	width: 80px;
+}
+
 #pop_back {
 	position: fixed;
 	margin: 0;

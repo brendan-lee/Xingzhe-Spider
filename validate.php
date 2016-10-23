@@ -9,6 +9,11 @@ include 'functions.php';
 if ($_POST['sessionid'] == NULL)
 	exit('<script>msg("错误", "sessionid不能为空，请正确填写后执行。")</script>');
 
+// 验证uid是否为空
+if ($_POST['uid'] == NULL)
+	exit('<script>msg("错误", "uid不能为空，请正确填写后执行。")</script>');
+$uid = $_POST['uid'];
+
 // 验证日期范围
 $fromY = $_POST['fromY'];
 $fromM = $_POST['fromM'];
