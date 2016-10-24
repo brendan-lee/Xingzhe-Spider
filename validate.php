@@ -17,6 +17,12 @@ if ($_POST['uid'] == NULL)
 	exit('<script>msg("错误", "uid不能为空，请正确填写后执行。")</script>');
 $uid = $_POST['uid'];
 
+// 验证uid是否为纯数字
+preg_match('/^\d*$/', $uid, $match);
+if ($match[0] != $uid) {
+	exit('<script>msg("错误", "uid必须为纯数字。")</script>');
+}
+
 // 验证日期范围
 $fromY = $_POST['fromY'];
 $fromM = $_POST['fromM'];
