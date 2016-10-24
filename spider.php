@@ -1,5 +1,9 @@
 <?php
-defined('VALIDATED') or	exit('请勿非法调用！');
+$taskId = $_POST['taskId'];
+
+// 验证task id合法性
+if (count($taskId) != 32)
+	exit('请勿非法调用！');
 
 /**
  * 按日期时间创建导出文件夹
@@ -11,7 +15,7 @@ if (!is_dir($root))
 is_dir($folder) ? exit('<script>msg("警告", "任务队列已满，请刷新后再试。")</script>') : mkdir($folder);
 
 /**
- * 循环爬取
+ * 循环爬取GPX
  */
 $failCount = $successCount = 0;
 foreach ($trackId as $i => $id) {

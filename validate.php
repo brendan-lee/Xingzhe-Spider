@@ -1,8 +1,6 @@
 <?php
 include 'functions.php';
 
-
-
 /**
  * 验证
  */
@@ -38,33 +36,37 @@ if (getGPX($sessionId, 1) == '登录以后才能导出')
 
 
 
-
-/*
- * 验证通过
+/**
+ * 分配task id
  */
-
-// 分配taskid
 date_default_timezone_set('Asia/Shanghai');
 $taskId = md5(microtime(true) . rand(0, 100));
 
-// 写入需要爬取的年份&月份到任务清单
+// 计算需要爬取的年份&月份
 $dateList = array();
+$monthsCount = 0;
 for ($y = $fromY, $i = 0; $y <= $toY; $y++, $i++) {
 	$dateList[$y] = array();
 	for ($m = ($y == $fromY ? $fromM : 1); $m <= ($y == $toY ? $toM : 12); $m++) {
 		$dateList[$y][] = (int)$m;
+		$monthsCount++;
 	}
 }
 
+// 需要爬取的量过多时报错退出
+if ($monthsCount > 24) {
+	exit('<script>msg("警告", "为保证爬取稳定性，一次性只允许导出不超过24个月的数据。")</script>');
+}
+
+// 写入年份&月份到任务清单
 $taskRoot = dirname(__FILE__) . '\task';
 if (!is_dir($taskRoot))
 	mkdir($taskRoot);
-echo '<script>msg("正在爬取GPX数据，过程视数据量和网络状况可能持续数秒至十数分钟，在完成前请不要关闭页面。")</script>';
-exit();
 file_put_contents($taskRoot . '\\' . $taskId, json_encode($dateList));
 
 // 开始爬取
-echo '<script>grab("' . $taskId . '")</script>';
+echo '<p>' . date('y-m-d h:i:s') . '&nbsp;&nbsp;&nbsp;&nbsp;开始爬取任务，全过程视数据量和网络状况可能持续数秒至十数分钟，在完成前请不要关闭页面。</p>';
+echo '<script>grab("' . $taskId . '", ' . $uid . ', ' . $monthsCount . ');</script>';
 
 
 
@@ -74,13 +76,6 @@ echo '<script>grab("' . $taskId . '")</script>';
 
 
 
-$trackInfo = array();
-$tmpArr = json_decode(file_get_contents ( 'http://www.imxingzhe.com/api/v3/user_month_info?user_id=' . $uid . '&year=' . $y . '&month=' . $m), true);
-$trackInfo = array_merge($trackInfo, $tmpArr['data']['wo_info']);
-
-
-
-define('VALIDATED', 1);
 // $jsonString = file_get_contents ( 'http://www.imxingzhe.com/api/v3/user_month_info?user_id=137311&year=2016&month=3' );
 $jsonString = file_get_contents('example.json');
 //$allTracksArr = json_decode ( $jsonString, true )['data']['wo_info'];

@@ -1,10 +1,7 @@
 /**
- * 验证提交的数据
+ * ajax提交验证
  */
 function validate() {
-	//$('body').html('<p>正在爬取GPX数据，过程视数据量可能持续数秒至数分钟，请不要关闭页面。</p>');
-	//$('title').html('正在爬取GPX数据……');
-
 	$.post('validate.php', {
 		sessionid: $('#sessionid').val(),
 		uid: $('#uid').val(),
@@ -18,11 +15,27 @@ function validate() {
 }
 
 /**
- * 向后台发送爬取请求
+ * ajax提交爬取请求
  * @param String taskId 任务ID
  */
-function grab(taskId) {
+function grab(taskId, uid, submitTimes) {
+	// 爬取每月轨迹清单
+	$.post('grab-track-list.php', {
+		taskId: taskId,
+		uid: uid
+	}, function(data) {
+		$('#wrapper').append(data);
+	});
 	
+	// 爬取GPX数据
+	for (var i = 0; i < submitTimes; i++) {
+		$.post('spider.php', {
+			taskId: taskId,
+			times: submitTimes
+		}, function(data) {
+			$('#wrapper').append(data);
+		});
+	}
 }
 
 /**
