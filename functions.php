@@ -22,19 +22,5 @@ function getGPX($sid, $id) {
 	return $result == NULL ? false : $result;
 }
 
-/**
- * 将指定内容写入文件。
- *
- * @param String $content
- *        	欲写入的内容
- * @param String $filename
- *        	欲存入的文件名
- */
-function write2File($filename, $content, $emptyFile) {
-	$file = fopen($filename, $emptyFile ? 'w' : 'a');
-	fwrite($file, $content);
-	fclose($file);
-}
-
 // TODO zip打包gpx
 ?>

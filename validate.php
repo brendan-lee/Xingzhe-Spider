@@ -59,9 +59,9 @@ for ($y = $fromY, $i = 0; $y <= $toY; $y++, $i++) {
 $taskRoot = dirname(__FILE__) . '\task';
 if (!is_dir($taskRoot))
 	mkdir($taskRoot);
-write2File($taskRoot . '\\' . $taskId, json_encode($dateList), true);
 echo '<script>msg("正在爬取GPX数据，过程视数据量和网络状况可能持续数秒至十数分钟，在完成前请不要关闭页面。")</script>';
 exit();
+file_put_contents($taskRoot . '\\' . $taskId, json_encode($dateList));
 
 // 开始爬取
 echo '<script>grab("' . $taskId . '")</script>';

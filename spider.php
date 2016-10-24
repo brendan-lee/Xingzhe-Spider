@@ -20,7 +20,7 @@ foreach ($trackId as $i => $id) {
 		echo '<p>' . ++$i . '：无法获取ID为' . $id . '的GPX数据，请检查轨迹ID正确性，并确保轨迹未设置隐藏。</p>';
 		$failCount++;
 	} else {
-		write2File(getGPX($id), $folder . '\\' . $id . '.gpx', true);
+		file_put_contents(getGPX($id), $folder . '\\' . $id . '.gpx');
 		echo '<p>' . ++$i . '：轨迹' . $id . ' 导出成功。</p>';
 		$successCount++;
 	}
