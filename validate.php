@@ -35,7 +35,6 @@ if (getGPX($sessionId, 1) == '登录以后才能导出')
 	exit('<script>msg("错误", "sessionid不正确，无法登录到行者。")</script>');
 
 
-
 /**
  * 分配task id
  */
@@ -65,7 +64,7 @@ if (!is_dir($taskRoot))
 file_put_contents($taskRoot . '\\' . $taskId, json_encode($dateList));
 
 // 开始爬取
-echo '<p>' . date('y-m-d h:i:s') . '&nbsp;&nbsp;&nbsp;&nbsp;开始爬取任务，全过程视数据量和网络状况可能持续数秒至十数分钟，在完成前请不要关闭页面。</p>';
+echo '<p>' . date('y-m-d h:i:s') . '：开始爬取任务，全过程视数据量和网络状况可能持续数秒至十数分钟，在完成前请不要关闭页面。</p>';
 echo '<script>grab("' . $taskId . '", ' . $uid . ', ' . $monthsCount . ');</script>';
 
 

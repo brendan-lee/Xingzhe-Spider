@@ -22,8 +22,17 @@ foreach ($dateList as $y => $yArr) {
 		$trackList = array_merge($trackList, $tmpArr['data']['wo_info']);
 	}
 }
-
 file_put_contents($taskFile, json_encode($trackList, JSON_UNESCAPED_UNICODE));
 
-echo '<p>' . date('y-m-d h:i:s') . '&nbsp;&nbsp;&nbsp;&nbsp;已获取轨迹清单，开始爬取GPX数据。</p>'
+/**
+ * 按日期时间创建导出文件夹
+ */
+$root = dirname(__FILE__) . '\gpx';
+$folder = $root . '\\' . date('ymd_his');
+if (!is_dir($root))
+	mkdir($root);
+is_dir($folder) ? exit('<script>msg("警告", "任务队列已满，请刷新后再试。")</script>') : mkdir($folder);
+
+echo '<script>var folderName = ' . $folder . '</script>';
+echo '<p>' . date('y-m-d h:i:s') . '：已获取轨迹清单，开始爬取GPX数据。</p>';
 ?>

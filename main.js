@@ -25,16 +25,21 @@ function grab(taskId, uid, submitTimes) {
 		uid: uid
 	}, function(data) {
 		$('#wrapper').append(data);
+		gpx();
 	});
 	
 	// 爬取GPX数据
-	for (var i = 0; i < submitTimes; i++) {
-		$.post('spider.php', {
-			taskId: taskId,
-			times: submitTimes
-		}, function(data) {
-			$('#wrapper').append(data);
-		});
+	function gpx() {
+		for (var i = 0; i < submitTimes; i++) {
+			$.post('spider.php', {
+				taskId: taskId,
+				sessionId: sessionid,
+				time: i,
+				folder: folderName
+			}, function(data) {
+				$('#wrapper').append(data);
+			});
+		}
 	}
 }
 
