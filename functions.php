@@ -18,8 +18,8 @@ function getGPX($sid, $id) {
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	$result = curl_exec($ch);
 	curl_close($ch);
-
-	return $result == NULL ? false : $result;
+	
+	return $result == NULL || $result = '' ? false : $result;
 }
 
 // TODO zip打包gpx
