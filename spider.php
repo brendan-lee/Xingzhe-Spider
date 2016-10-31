@@ -13,7 +13,7 @@ if (strlen($taskId) != 32 || !file_exists(dirname(__FILE__) . '\task\\' . $taskI
  * 获取轨迹id
  */
 $taskFile = dirname(__FILE__) . '\task\\' . $taskId;
-$trackList = json_decode(file_get_contents($taskFile));
+$trackList = json_decode(file_get_contents($taskFile), true);
 $trackId = $trackList[$time]['id'];
 
 /**
