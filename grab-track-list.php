@@ -34,5 +34,5 @@ if (!is_dir($root))
 is_dir($folder) ? exit('<script>msg("警告", "任务队列已满，请刷新后再试。")</script>') : mkdir($folder);
 
 echo '<script>var folderName = ' . $folder . '</script>';
-echo '<p>' . date('y-m-d h:i:s') . '：已获取轨迹清单，开始爬取GPX数据。</p>';
+eLog('已获取轨迹清单，开始爬取GPX数据。');
 ?>

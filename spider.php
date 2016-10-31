@@ -21,10 +21,10 @@ $trackId = $trackList[$time]['id'];
  */
 // 无法获取数据时报错并跳过
 if (getGPX($sessionId, $trackId) == false) {
-	echo '<p>' . date('y-m-d h:i:s') . '：无法获取ID为' . $trackId . '的GPX数据，请确保轨迹未设置隐藏。</p>';
+	eLog('无法获取ID为' . $trackId . '的GPX数据，请确保轨迹未设置隐藏。');
 } else {
 	file_put_contents(getGPX($trackId), $folder . '\\' . $trackId . '.gpx');
-	echo '<p>' . date('y-m-d h:i:s') . '：轨迹 ' . $trackId . ' 导出成功。</p>';
+	eLog('轨迹 ' . $trackId . ' 导出成功。');
 }
 ?>
 

@@ -52,6 +52,7 @@ for ($y = $fromY, $i = 0; $y <= $toY; $y++, $i++) {
 	}
 }
 
+
 // 需要爬取的量过多时报错退出
 if ($monthsCount > 24) {
 	exit('<script>msg("警告", "为保证爬取稳定性，一次性只允许导出不超过24个月的数据。")</script>');
@@ -64,23 +65,7 @@ if (!is_dir($taskRoot))
 file_put_contents($taskRoot . '\\' . $taskId, json_encode($dateList));
 
 // 开始爬取
-echo '<p>' . date('y-m-d h:i:s') . '：开始爬取任务，全过程视数据量和网络状况可能持续数秒至十数分钟，在完成前请不要关闭页面。</p>';
+eLog('开始爬取任务，全过程视数据量和网络状况可能持续数秒至十数分钟，在完成前请不要关闭页面。');
 echo '<script>grab("' . $taskId . '", ' . $uid . ', ' . $monthsCount . ');</script>';
 
-
-
-
-
-
-
-
-
-// $jsonString = file_get_contents ( 'http://www.imxingzhe.com/api/v3/user_month_info?user_id=137311&year=2016&month=3' );
-$jsonString = file_get_contents('example.json');
-//$allTracksArr = json_decode ( $jsonString, true )['data']['wo_info'];
-
-// 所有要抓取的轨迹
-$trackId = array(15376320, 15252281, 15244912, 15066892, 14941162);
-
-//include 'spider.php';
 ?>
