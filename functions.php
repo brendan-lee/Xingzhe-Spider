@@ -26,7 +26,7 @@ function getGPX($sid, $id) {
  * 输出LOG
  */
 function eLog($str) {
-	echo '<p>' . date('y-m-d h:i:s') . '：' . $str . '</p>';
+	echo '<p>' . date('y-m-d H:i:s') . '：' . $str . '</p>';
 }
 // TODO zip打包gpx
 ?>
