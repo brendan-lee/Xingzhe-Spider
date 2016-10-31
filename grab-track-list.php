@@ -40,6 +40,7 @@ if (!is_dir($root))
 	mkdir($root);
 is_dir($folder) ? exit('<script>msg("警告", "任务队列已满，请刷新后再试。")</script>') : mkdir($folder);
 
-echo '<script>var folderName = ' . $folder . '</script>';
+
+echo '<script>folderName = "' . str_replace('\\', '\\\\', $folder) . '";</script>';
 eLog('已获取轨迹清单，开始爬取GPX数据。');
 ?>

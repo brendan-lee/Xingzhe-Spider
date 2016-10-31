@@ -18,6 +18,7 @@ function validate() {
  * ajax提交爬取请求
  * @param String taskId 任务ID
  */
+var folderName = '';
 function grab(taskId, uid, submitTimes) {
 	// 爬取每月轨迹清单
 	$.post('grab-track-list.php', {
