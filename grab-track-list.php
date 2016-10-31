@@ -22,6 +22,13 @@ foreach ($dateList as $y => $yArr) {
 		$trackList = array_merge($trackList, $tmpArr['data']['wo_info']);
 	}
 }
+// 日期范围内没有运动轨迹，删除任务&退出
+if (count($trackList) == 0) {
+	unlink($taskFile);
+	eLog('任务结束。');
+	exit('<script>msg("警告", "所选日期范围内没有轨迹，请重新设置日期范围。")</script>');
+}
+
 file_put_contents($taskFile, json_encode($trackList, JSON_UNESCAPED_UNICODE));
 
 /**
