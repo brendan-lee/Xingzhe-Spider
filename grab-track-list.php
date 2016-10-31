@@ -42,5 +42,6 @@ is_dir($folder) ? exit('<script>msg("警告", "任务队列已满，请刷新后
 
 
 echo '<script>folderName = "' . str_replace('\\', '\\\\', $folder) . '";</script>';
+echo '<script>submitTime = ' . count($trackList) . ';</script>';
 eLog('已获取轨迹清单，开始爬取GPX数据。');
 ?>

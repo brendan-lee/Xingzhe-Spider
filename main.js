@@ -1,9 +1,11 @@
 /**
  * ajax提交验证
  */
+var sessionId;
 function validate() {
+	sessionId = $('#sessionid').val();
 	$.post('validate.php', {
-		sessionid: $('#sessionid').val(),
+		sessionid: sessionId,
 		uid: $('#uid').val(),
 		fromY: $('#from_year option:selected').val(),
 		fromM: $('#from_month option:selected').val(),
@@ -18,29 +20,33 @@ function validate() {
  * ajax提交爬取请求
  * @param String taskId 任务ID
  */
-var folderName = '';
-function grab(taskId, uid, submitTimes) {
+var folderName;
+var submitTime;
+var stopExe = false;
+function grabTrackList(taskId, uid) {
 	// 爬取每月轨迹清单
 	$.post('grab-track-list.php', {
 		taskId: taskId,
 		uid: uid
 	}, function(data) {
 		$('#wrapper').append(data);
-		gpx();
+		if (!stopExe)
+			grabGpx(sessionId, taskId, submitTime);
+		stopExe = false;
 	});
-	
-	// 爬取GPX数据
-	function gpx() {
-		for (var i = 0; i < submitTimes; i++) {
-			$.post('spider.php', {
-				taskId: taskId,
-				sessionId: sessionid,
-				time: i,
-				folder: folderName
-			}, function(data) {
-				$('#wrapper').append(data);
-			});
-		}
+}
+
+// 爬取GPX数据
+function grabGpx(sid, tid, times) {
+	for (var i = 0; i < times; i++) {
+		$.post('spider.php', {
+			taskId: tid,
+			sessionId: sid,
+			time: i,
+			folder: folderName
+		}, function(data) {
+			$('#wrapper').append(data);
+		});
 	}
 }
 
@@ -61,7 +67,7 @@ function msg(title, cont) {
 		'visibility': 'visible',
 		'opacity': '1'
 	});
-
+	stopExe = true;
 }
 
 /**

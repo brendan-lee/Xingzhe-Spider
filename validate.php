@@ -66,6 +66,6 @@ file_put_contents($taskRoot . '\\' . $taskId, json_encode($dateList));
 
 // 开始爬取
 eLog('开始爬取任务，全过程视数据量和网络状况可能持续数秒至十数分钟，在完成前请不要关闭页面。');
-echo '<script>grab("' . $taskId . '", ' . $uid . ', ' . $monthsCount . ');</script>';
+echo '<script>grabTrackList("' . $taskId . '", ' . $uid . ');</script>';
 
 ?>
