@@ -23,8 +23,12 @@ $trackId = $trackList[$time]['id'];
 if (getGPX($sessionId, $trackId) == false) {
 	eLog('无法获取ID为' . $trackId . '的GPX数据，请确保轨迹未设置隐藏。');
 } else {
-	file_put_contents(getGPX($trackId), $folder . '\\' . $trackId . '.gpx');
-	eLog('轨迹 ' . $trackId . ' 导出成功。');
+	$content = getGPX($sessionId, $trackId);
+	file_put_contents($folder . '\\' . $trackId . '.gpx', $content);
+	eLog('轨迹 ' . $trackId . '（' . $trackList[$time]['title'] . '） 导出成功。');
+	
+	if ($time == count($trackList) - 1)
+		eLog('任务完成，共导出' . count($trackList) . '条轨迹。');
 }
 ?>
 
